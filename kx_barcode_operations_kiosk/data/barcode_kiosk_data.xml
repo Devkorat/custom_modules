@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Sequence for Kiosk Sessions -->
+        <record id="seq_barcode_kiosk_session" model="ir.sequence">
+            <field name="name">Barcode Kiosk Session</field>
+            <field name="code">barcode.kiosk.session</field>
+            <field name="prefix">KIOSK/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

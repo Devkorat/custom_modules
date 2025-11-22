@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Main Menu -->
+        <menuitem id="menu_barcode_kiosk_root"
+                  name="Barcode Kiosk"
+                  sequence="100"
+                  web_icon="kx_barcode_operations_kiosk,static/description/icon.png"
+                  groups="group_barcode_kiosk_user"/>
+
+        <!-- Kiosk Interface Menu -->
+
+        <!-- Sessions Menu -->
+        <menuitem id="menu_barcode_kiosk_sessions"
+                  name="Sessions"
+                  parent="menu_barcode_kiosk_root"
+                  action="action_barcode_kiosk_session"
+                  sequence="20"/>
+        
+        <menuitem id="menu_barcode_kiosk_interface"
+                  name="Kiosk Interface"
+                  parent="menu_barcode_kiosk_root"
+                  action="action_barcode_kiosk_interface"
+                  sequence="30"/>
+
+        <!-- Configuration Menu -->
+        <menuitem id="menu_barcode_kiosk_config"
+                  name="Configuration"
+                  parent="menu_barcode_kiosk_sessions"
+                  sequence="100"
+                  groups="group_barcode_kiosk_manager"/>
+
+        <!-- <menuitem id="menu_barcode_kiosk_settings"
+                  name="Settings"
+                  parent="menu_barcode_kiosk_config"
+                  action="base.action_res_config"
+                  sequence="10"/> -->
+
+    </data>
+</odoo>

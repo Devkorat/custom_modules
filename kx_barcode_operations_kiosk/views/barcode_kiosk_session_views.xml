@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Kiosk Session Tree View -->
+        <record id="view_barcode_kiosk_session_tree" model="ir.ui.view">
+            <field name="name">barcode.kiosk.session.tree</field>
+            <field name="model">barcode.kiosk.session</field>
+            <field name="arch" type="xml">
+                <list string="Kiosk Sessions" decoration-success="state=='closed'" decoration-info="state=='active'">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="operation_type"/>
+                    <field name="picking_id"/>
+                    <field name="start_time"/>
+                    <field name="end_time"/>
+                    <field name="total_scans"/>
+                    <field name="successful_scans"/>
+                    <field name="failed_scans"/>
+                    <field name="state" widget="badge" decoration-success="state=='closed'" decoration-info="state=='active'"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Kiosk Session Form View -->
+        <record id="view_barcode_kiosk_session_form" model="ir.ui.view">
+            <field name="name">barcode.kiosk.session.form</field>
+            <field name="model">barcode.kiosk.session</field>
+            <field name="arch" type="xml">
+                <form string="Kiosk Session">
+                    <header>
+                        <button name="action_close_session" 
+                                string="Close Session" 
+                                type="object" 
+                                class="btn-primary"
+                                invisible="state != 'active'"/>
+                        <button name="action_reopen_session" 
+                                string="Reopen Session" 
+                                type="object" 
+                                class="btn-secondary"
+                                invisible="state != 'closed'"/>
+                        <button name="action_validate_picking" 
+                                string="Validate Operation" 
+                                type="object" 
+                                class="btn-success"
+                                invisible="state != 'active' or not picking_id"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_validate_picking" 
+                                    type="object" 
+                                    class="oe_stat_button" 
+                                    icon="fa-check-square-o"
+                                    invisible="not picking_id">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Validate</span>
+                                    <span class="o_stat_text">Operation</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="user_id"/>
+                                <field name="operation_type"/>
+                                <field name="picking_id"/>
+                            </group>
+                            <group>
+                                <field name="start_time"/>
+                                <field name="end_time"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <group string="Locations" invisible="operation_type != 'internal'">
+                            <group>
+                                <field name="location_src_id"/>
+                            </group>
+                            <group>
+                                <field name="location_dest_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="total_scans"/>
+                                <field name="successful_scans"/>
+                            </group>
+                            <group>
+                                <field name="failed_scans"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Scan Lines" name="scan_lines">
+                                <field name="scan_line_ids">
+                                    <list decoration-success="status=='success'" decoration-danger="status=='error'" decoration-warning="status=='warning'">
+                                        <field name="scan_time"/>
+                                        <field name="barcode"/>
+                                        <field name="operation_type"/>
+                                        <field name="product_id"/>
+                                        <field name="location_id"/>
+                                        <field name="status" widget="badge"/>
+                                        <field name="message"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Notes" name="notes">
+                                <field name="notes" placeholder="Add any notes about this session..."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <!-- Kiosk Session Search View -->
+        <record id="view_barcode_kiosk_session_search" model="ir.ui.view">
+            <field name="name">barcode.kiosk.session.search</field>
+            <field name="model">barcode.kiosk.session</field>
+            <field name="arch" type="xml">
+                <search string="Search Kiosk Sessions">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="picking_id"/>
+                    <filter string="Active" name="active" domain="[('state', '=', 'active')]"/>
+                    <filter string="Closed" name="closed" domain="[('state', '=', 'closed')]"/>
+                    <separator/>
+                    <filter string="My Sessions" name="my_sessions" domain="[('user_id', '=', uid)]"/>
+                    <separator/>
+                    <filter string="Today" name="today" domain="[('start_time', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter string="This Week" name="week" domain="[('start_time', '&gt;=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="User" name="group_user" context="{'group_by': 'user_id'}"/>
+                        <filter string="Operation Type" name="group_operation" context="{'group_by': 'operation_type'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Start Date" name="group_start_date" context="{'group_by': 'start_time'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Kiosk Session Action -->
+        <record id="action_barcode_kiosk_session" model="ir.actions.act_window">
+            <field name="name">Kiosk Sessions</field>
+            <field name="res_model">barcode.kiosk.session</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'search_default_my_sessions': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No kiosk sessions found
+                </p>
+                <p>
+                    Start a new kiosk session from the Kiosk Interface menu.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
