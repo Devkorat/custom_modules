@@ -1,0 +1,20 @@
+so, let me clear you again
+
+1) When user sends us the message and if we dont have particular action we will give them visual reply with buttons for Catalog, Track Order
+2) when user clicks on Catalog, we will display the catalog in visual buttons with name, price, and pic if it is available, when user click on that button we will ask them for the quantity they want to add
+3) then we will ask them if they want to add another product or not
+4) if they want to add another product, repeat step 2
+5) if they chhose to Confirm Order we will ask them if they are Existing user or New User in button form
+6) if they chhose Existing user, we will ask them their email address and we will confirm their order in our sale order with that partner having this email id and sends them their order id
+7) if they select new user, we will ask them a name, email id, address, and then we will create a record of partner from those details. phone number will be taken from the current chat
+8) if they click on Track order we will display them butttons of the their order, if they chhose particular order we will show them a tracking of the Sale order
+
+
+Create a required Model, controller, views everything
+also make sure we will ask to customer to chhose option in visual form, in button format and they can chhose what to do next
+
+so, you can create appropriate actions if required, then we will have whatsapp session to store all this details
+and once they finalize the order we will update session
+make sure user can select multiple products in order 
+
+so provide code accordinly that works

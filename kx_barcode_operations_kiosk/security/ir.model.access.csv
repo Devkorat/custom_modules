@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_barcode_kiosk_session_user,barcode.kiosk.session.user,model_barcode_kiosk_session,group_barcode_kiosk_user,1,1,1,0
-access_barcode_kiosk_session_manager,barcode.kiosk.session.manager,model_barcode_kiosk_session,group_barcode_kiosk_manager,1,1,1,1
-access_barcode_kiosk_scan_line_user,barcode.kiosk.scan.line.user,model_barcode_kiosk_scan_line,group_barcode_kiosk_user,1,1,1,0
-access_barcode_kiosk_scan_line_manager,barcode.kiosk.scan.line.manager,model_barcode_kiosk_scan_line,group_barcode_kiosk_manager,1,1,1,1

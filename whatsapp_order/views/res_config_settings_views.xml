@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.base.setup</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="0"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="WhatsApp" string="Whatsapp" name="whatsapp_credentials" logo="/whatsapp_order/static/description/icon.png">
+                    <block title="WhatsApp Credentials" name="whatsapp_credentials_setting_container">
+                        <setting string="WhatsApp API Key">
+                            <field name="whatsapp_api_key" class="oe_inline" />
+                        </setting>
+                        <setting string="WhatsApp Number">
+                            <field name="whatsapp_number" class="oe_inline" />
+                        </setting>
+                        <setting string="FB Catalog ID">
+                            <field name="fb_catalog_id" class="oe_inline" />
+                        </setting>
+                        <setting string="FB Catalog Access Token">
+                            <field name="fb_catalog_access_token" class="oe_inline" />
+                        </setting>
+                        <setting string="Google Map API Key">
+                            <field name="google_map_api_key" class="oe_inline" />
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

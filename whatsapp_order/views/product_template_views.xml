@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_product_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group>
+                    <field name="fb_catalog_product_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
